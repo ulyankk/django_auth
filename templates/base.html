@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Учебное приложение{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'vendor/tabler/css/tabler.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="layout-fluid">
+
+<div class="page">
+    <header class="navbar navbar-expand-md navbar-light d-print-none bg-white border-bottom">
+        <div class="container-xl">
+            <a class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3"
+               href="/profile/">
+                <strong>DjangoApp</strong>
+            </a>
+
+            <div class="navbar-nav flex-row order-md-last">
+                {% if user.is_authenticated %}
+                    <div class="nav-item d-none d-md-flex me-3">
+                        <span class="nav-link px-0">
+                            <span class="avatar avatar-sm bg-primary text-white">
+                                {{ user.username|slice:":1"|upper }}
+                            </span>
+                            <span class="ms-2">{{ user.username }}</span>
+                        </span>
+                    </div>
+                    <div class="nav-item">
+                        <form method="post" action="/accounts/logout/">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-secondary btn-sm" type="submit">
+                                Выйти
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="collapse navbar-collapse show" id="navbar-menu">
+                <ul class="navbar-nav flex-row">
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="/profile/">Профиль</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="/dashboard/">Дашборд</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="/departments/">Факультеты</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="/groups/">Группы</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="/courses/">Курсы</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        <div class="page-body">
+            <div class="container-xl">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'vendor/tabler/js/tabler.min.js' %}"></script>
+</body>
+</html>

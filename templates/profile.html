@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="row row-cards">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <span class="avatar avatar-xl bg-primary text-white me-3">
+                        {{ user.username|slice:":1"|upper }}
+                    </span>
+                    <div>
+                        <h2 class="mb-1">{{ user.username }}</h2>
+                        <div>
+                            {% if user.is_superuser %}
+                                <span class="badge bg-danger text-white">Администратор</span>
+                            {% elif user.is_staff %}
+                                <span class="badge bg-warning text-white">Сотрудник</span>
+                            {% else %}
+                                <span class="badge bg-secondary text-white">Пользователь</span>
+                            {% endif %}
+                            {% if is_methodist %}
+                                <span class="badge bg-success text-white">Методист</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <form method="post" action="/accounts/logout/">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

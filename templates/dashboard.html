@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Дашборды{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Дашборды</h1>
+</div>
+
+<!-- ФИЛЬТР -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">Факультет</label>
+                <select name="department" class="form-select">
+                    <option value="">Все факультеты</option>
+                    {% for d in all_departments %}
+                        <option value="{{ d.id }}"
+                            {% if dept_filter == d.id|stringformat:"s" %}selected{% endif %}>
+                            {{ d.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Применить</button>
+            </div>
+            <div class="col-md-2">
+                <a href="/dashboard/" class="btn btn-link w-100">Сбросить</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- KPI -->
+<div class="row row-deck row-cards mb-4">
+    {% include '_kpi_card.html' with title="Всего курсов" value=total_courses %}
+    {% include '_kpi_card.html' with title="Факультетов" value=total_departments %}
+    {% include '_kpi_card.html' with title="Учебных групп" value=total_groups %}
+    {% include '_kpi_card.html' with title="Студентов" value=total_students %}
+</div>
+
+<!-- Графики -->
+<div class="row row-deck row-cards">
+    {% include '_chart_card.html' with col_class="col-lg-8" title="Количество курсов по факультетам" canvas_id="chartCoursesByDept" %}
+    {% include '_chart_card.html' with col_class="col-lg-4" title="Соотношение курсов" canvas_id="chartDistribution" %}
+    {% include '_chart_card.html' with col_class="col-12" title="Студенты по учебным группам" canvas_id="chartStudentsByGroup" %}
+</div>
+
+<style>
+    .chart-box {
+        position: relative;
+        height: 350px;
+    }
+</style>
+
+<script src="{% static 'vendor/chart/js/chart.umd.js' %}"></script>
+<script>
+    const deptLabels = {{ dept_labels|safe }};
+    const deptCounts = {{ dept_counts|safe }};
+    const groupLabels = {{ group_labels|safe }};
+    const groupCounts = {{ group_counts|safe }};
+
+    new Chart(document.getElementById('chartCoursesByDept'), {
+        type: 'bar',
+        data: {
+            labels: deptLabels,
+            datasets: [{
+                label: 'Курсы',
+                data: deptCounts,
+                backgroundColor: 'rgba(32, 107, 196, 0.7)',
+                borderColor: 'rgba(32, 107, 196, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+    });
+
+    new Chart(document.getElementById('chartDistribution'), {
+        type: 'doughnut',
+        data: {
+            labels: deptLabels,
+            datasets: [{
+                data: deptCounts,
+                backgroundColor: ['#206bc4', '#4299e1', '#79a6dc', '#a8c5e8', '#d0e0f0']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    new Chart(document.getElementById('chartStudentsByGroup'), {
+        type: 'bar',
+        data: {
+            labels: groupLabels,
+            datasets: [{
+                label: 'Студенты',
+                data: groupCounts,
+                backgroundColor: 'rgba(47, 179, 68, 0.7)',
+                borderColor: 'rgba(47, 179, 68, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', scales: { x: { beginAtZero: true } } }
+    });
+</script>
+{% endblock %}
