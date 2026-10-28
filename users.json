@@ -19,44 +19,6 @@
 },
 {
   "model": "auth.user",
-  "pk": 2,
-  "fields": {
-    "password": "pbkdf2_sha256$1500000$Rn23LfvMEJ6Kpd0meaaqEI$7Pzp5aJk2/6SGjPGGTcwd73vH3Mk98LOopfgv4VArwA=",
-    "last_login": "2026-10-10T07:36:28.978Z",
-    "is_superuser": false,
-    "username": "student1",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-09-26T06:38:26.067Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 3,
-  "fields": {
-    "password": "pbkdf2_sha256$1500000$fbxRW5vjs4rSqQjkVhi9SQ$IMFPyTNulJuvKXmYKcwXyBpaM+fQkxoe/D1zPwAX5xY=",
-    "last_login": "2026-10-10T06:50:43.759Z",
-    "is_superuser": false,
-    "username": "methodist",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-10-07T13:17:28Z",
-    "groups": [
-      1
-    ],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
   "pk": 4,
   "fields": {
     "password": "pbkdf2_sha256$1500000$1EqZI6SlguSxPOO0D25JWe$eWf5PgsGJRMvbBvASF9ffRB4aQTJSnuHES1pZoCb06I=",
@@ -69,24 +31,6 @@
     "is_staff": true,
     "is_active": true,
     "date_joined": "2026-10-24T06:44:05.983Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 5,
-  "fields": {
-    "password": "pbkdf2_sha256$1500000$DujHZlIiEOfVJt7CAHKwjV$dBqMj1erYomYtANP/iXAG2ZwzT9fK0y1SLSc8ndv6BM=",
-    "last_login": "2026-10-26T19:34:19.336Z",
-    "is_superuser": false,
-    "username": "zahar",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2026-10-26T19:32:49Z",
     "groups": [],
     "user_permissions": []
   }
