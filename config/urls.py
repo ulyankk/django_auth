@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
 from django.http import JsonResponse
-from tickets.views import healthz
-from django.http import JsonResponse
 from django.db import connection
 
 def healthz(request):
